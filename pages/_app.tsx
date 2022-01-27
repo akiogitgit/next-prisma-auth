@@ -1,10 +1,15 @@
-import { AppProps } from "next/app";
-import "../styles/globals.css"
+import '../styles/globals.css'
+import type { AppProps } from 'next/app'
+import { SessionProvider } from "next-auth/react"
 
-const App = ({ Component, pageProps }: AppProps) => {
+// session.がどこでも使えるようにする！ session.user.nameとか
+function MyApp({ Component, pageProps:{
+  session,...pageProps} }: AppProps) {
   return (
-    <Component {...pageProps} />
-  );
-};
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  )
+}
 
-export default App;
+export default MyApp

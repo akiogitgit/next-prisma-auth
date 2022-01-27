@@ -1,5 +1,6 @@
 import React from "react"
 import { GetStaticProps } from "next"
+import Link from "next/dist/client/link"
 import Layout from "../components/Layout"
 import Post, { PostProps } from "../components/Post"
 // prisma.user.create()で新しいUserレコードを作成したり、prisma.post.findMany()でデータベースから全てのPostレコードを取得したりすることができます
@@ -48,6 +49,10 @@ const Blog: React.FC<Props> = ({ feed }) => {
               <Post post={post} />
             </div>
           ))}
+
+          <Link href="/Header">
+            <a>Header</a>
+          </Link>
         </main>
       </div>
     </Layout>
