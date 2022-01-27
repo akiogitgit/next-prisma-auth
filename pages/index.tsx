@@ -2,20 +2,32 @@ import React from "react"
 import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
 import Post, { PostProps } from "../components/Post"
+// prisma.user.create()で新しいUserレコードを作成したり、prisma.post.findMany()でデータベースから全てのPostレコードを取得したりすることができます
+import prisma from '../lib/prisma';
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = [
-    {
-      id: 1,
-      title: "Prisma is the perfect ORM for Next.js",
-      content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
-      published: false,
+  // .post.findMany はpostを全取得
+  const feed = await prisma.post.findMany({
+    where: { published: true },
+    include: {
       author: {
-        name: "Nikolas Burk",
-        email: "burk@prisma.io",
+        select: { name: true },
       },
     },
-  ]
+  });
+
+  // const addPost = await prisma.post.create({
+  //   data: {
+  //     title: "add Title",
+  //     content: "add Content",
+  //     published: true,
+  //     authorId: 1,
+  //   }
+  // })
+
+  // findUniqueは一意のやつ
+  // findFirstは最初のやつ
+  // findManyは全部
   return { props: { feed } }
 }
 
@@ -23,33 +35,21 @@ type Props = {
   feed: PostProps[]
 }
 
-const Blog: React.FC<Props> = (props) => {
+//                            ( props )だと、下はprops.feedになる
+const Blog: React.FC<Props> = ({ feed }) => {
   return (
     <Layout>
-      <div className="page">
+      <div>
         <h1>Public Feed</h1>
+        <p className="text-[20px] text-red-500">Public Feed</p>
         <main>
-          {props.feed.map((post) => (
-            <div key={post.id} className="post">
+          {feed.map((post) => (
+            <div key={post.id} className="bg-white mt-10">
               <Post post={post} />
             </div>
           ))}
         </main>
       </div>
-      <style jsx>{`
-        .post {
-          background: white;
-          transition: box-shadow 0.1s ease-in;
-        }
-
-        .post:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .post + .post {
-          margin-top: 2rem;
-        }
-      `}</style>
     </Layout>
   )
 }

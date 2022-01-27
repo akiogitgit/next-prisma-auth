@@ -1,24 +1,74 @@
 import React from "react"
-import { GetServerSideProps } from "next"
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next"
 import ReactMarkdown from "react-markdown"
 import Layout from "../../components/Layout"
 import { PostProps } from "../../components/Post"
+import prisma from "../../lib/prisma"
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = {
-    id: 1,
-    title: "Prisma is the perfect ORM for Next.js",
-    content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
-    published: false,
-    author: {
-      name: "Nikolas Burk",
-      email: "burk@prisma.io",
+type PageProps = {
+
+}
+
+// [id].ts は動的ルーティングだから、SSRのgetServerSideProps
+// ルーティングの情報が入ったparamsを受け取る
+// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+
+//   const post = await prisma.post.findUnique({
+//     where: {
+//       id: Number(params?.id) || -1,
+//     },
+//     include: {
+//       author: {
+//         select: { name: true}
+//       }
+//     }
+//   })
+//   return {
+//     // 渡すものが一つだけなら、props = postになる
+//     props: post,
+//   }
+// }
+
+export const getStaticPaths: GetStaticPaths = async() => {
+  const path = await prisma.post.findMany()
+  // 必ずparamsに入れる
+  const paths = path.map((post)=>({
+    params:{
+      // 数値だとだめらしい
+      id: String(post.id)
     },
-  }
+  }))
+  const paths1 = [
+    { params: { id: '1' } },
+    { params: { id: '2' } },
+    { params: { id: '3' } }
+  ]
   return {
-    props: post,
+    paths,
+    fallback: true
   }
 }
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: Number(params?.id) || -1,
+    },
+    include: {
+      author: {
+        select: { name: true}
+      }
+    }
+  })
+  return {
+    // 渡すものが一つだけなら、props = postになる
+    props: post,
+    revalidate: 10,
+  }
+}
+
+
+
 
 const Post: React.FC<PostProps> = (props) => {
   let title = props.title
