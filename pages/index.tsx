@@ -16,19 +16,6 @@ export const getStaticProps: GetStaticProps = async () => {
       },
     },
   });
-
-  // const addPost = await prisma.post.create({
-  //   data: {
-  //     title: "add Title",
-  //     content: "add Content",
-  //     published: true,
-  //     authorId: 1,
-  //   }
-  // })
-
-  // findUniqueは一意のやつ
-  // findFirstは最初のやつ
-  // findManyは全部
   return { props: { feed } }
 }
 
@@ -42,21 +29,12 @@ const Blog: React.FC<Props> = ({ feed }) => {
     <Layout>
       <div>
         <h1>Public Feed</h1>
-        <p className="text-[20px] text-red-500">Public Feed</p>
         <main>
           {feed.map((post) => (
-            <div key={post.id} className="bg-white mt-10">
+            <div key={post.id} className="bg-white">
               <Post post={post} />
             </div>
           ))}
-          <ul>
-            <li>
-              <Link href="/Header">Header</Link>
-            </li>
-            <li>
-              <Link href="/drafts">draft</Link>
-            </li>
-          </ul>
         </main>
       </div>
     </Layout>

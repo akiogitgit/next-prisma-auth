@@ -5,9 +5,11 @@ import Link from "next/dist/client/link";
 import prisma from "../lib/prisma";
 
 const Draft: VFC = () => {
+
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [published, setPublished] = useState(false)
+
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         try{
@@ -42,15 +44,15 @@ const Draft: VFC = () => {
                     onChange={(e)=>setContent(e.target.value)}
                     value={content}
                 />
-                <input type="checkbox" onClick={()=>setPublished(!published)}/>
-                {published && <p>anpan</p>}
+                <input id="1" type="checkbox" onClick={()=>setPublished(!published)}/>
+                <label htmlFor="1">publish</label><br/>
                 <button
                     type="submit"
                     disabled={!content || !title}
                 >
-                    Create
+                    Create 
                 </button>
-                <Link href="/">Cancel</Link>
+                <Link href="/"> Cancel</Link>
             </form>
         </Layout>
     )

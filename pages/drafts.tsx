@@ -18,8 +18,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
     const drafts = await prisma.post.findMany({
         where: {
-            // author: { email: session.user.email },
-            published: false, // 非公開のを表示
+            author: { email: session.user.email },
+            // published: false, // 非公開のを表示
         },
         include: {
             author: {
@@ -37,17 +37,6 @@ type Props = {
 }
 
 const Drafts: VFC<Props> = (props) => {
-    const { data: session } = useSession()
-
-    if(!session){
-        return(
-            <Layout>
-                <h1>My Drafts</h1>
-                <div>You need to be authenticated to view this page. </div>
-            </Layout>
-        )
-    }
-
     return(
         <Layout>
             <div>

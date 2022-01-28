@@ -4,10 +4,7 @@ import Router from "next/router";
 import prisma from "../../../lib/prisma"
 
 // 受信したHTTP POST リクエストのbodyからタイトルとコンテントを抽出します
-export default async function handle(
-        req: NextApiRequest,
-        res: NextApiResponse
-    ) {
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
         const { title, content, published } = req.body
         const session = await getSession({ req })
         if (!session) {
@@ -39,6 +36,7 @@ export default async function handle(
             },
         })
         res.end()
+        
     // const { title, content } = req.body
     // // session してるか確認
     // const session = await getSession({ req })

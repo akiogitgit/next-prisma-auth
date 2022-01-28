@@ -80,7 +80,7 @@ const Post: VFC<PostProps> = (props) => {
   // const [session, loading] = useSession()
   const { data: session } = useSession()
   if(!session){
-    return <div>Authenticating ... (^^</div>
+    return <div>ログインしてね ... (^^</div>
   }
   const userHasVlidSession = Boolean(session)
   const postbelongsToUser = session?.user?.email === props.author?.email
@@ -91,16 +91,21 @@ const Post: VFC<PostProps> = (props) => {
     title = `${title} (Draft)`
   }
 
+  // 他人の非公開を見れないようにしよう
   return (
     <Layout>
+      {!(!props.published && !postbelongsToUser) ?
       <div>
-        <h2>{title}</h2>
-        <p>By {props?.author?.name || "Unknown author"}</p>
-        <ReactMarkdown source={props.content} />
+        <div className="p-4 bg-white">
+          <h2 className="text-[20px] underline">{title}</h2>
+          <p>{props.content}</p>
+          <p className="mt-2 text-[12px] text-gray-500">By {props?.author?.name || "Unknown author"}</p>
+        </div>
         {!props.published && userHasVlidSession && postbelongsToUser && (
           <button onClick={()=>publishPost(props.id)}>Publish</button>
         )}
-      </div>
+      </div> : "anpan"
+      }
     </Layout>
   )
 }
