@@ -1,9 +1,10 @@
-import React from "react"
+import React, { VFC } from "react"
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next"
 import ReactMarkdown from "react-markdown"
 import Layout from "../../components/Layout"
 import { PostProps } from "../../components/Post"
 import prisma from "../../lib/prisma"
+import { useSession } from "next-auth/client"
 
 type PageProps = {
 
@@ -56,7 +57,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
     include: {
       author: {
-        select: { name: true}
+        select: { name: true, email: true }
       }
     }
   })
@@ -70,7 +71,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 
 
-const Post: React.FC<PostProps> = (props) => {
+const Post: VFC<PostProps> = (props) => {
+
   let title = props.title
   if (!props.published) {
     title = `${title} (Draft)`
@@ -83,27 +85,6 @@ const Post: React.FC<PostProps> = (props) => {
         <p>By {props?.author?.name || "Unknown author"}</p>
         <ReactMarkdown source={props.content} />
       </div>
-      <style jsx>{`
-        .page {
-          background: white;
-          padding: 2rem;
-        }
-
-        .actions {
-          margin-top: 2rem;
-        }
-
-        button {
-          background: #ececec;
-          border: 0;
-          border-radius: 0.125rem;
-          padding: 1rem 2rem;
-        }
-
-        button + button {
-          margin-left: 1rem;
-        }
-      `}</style>
     </Layout>
   )
 }

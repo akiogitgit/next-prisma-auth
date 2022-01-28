@@ -19,10 +19,11 @@ const Header: VFC = () => {
     }
     return(
         <Layout>
-            <div>
+            <div className='flex flex-col gap-4 float-left'>
                 <h1 className='text-[30px]'>Sign in Page</h1>
                 <button onClick={()=>signOut()}>SignOut</button>
                 <Link href="/">home</Link>
+                <Link href="/create">create</Link>
             </div>
         </Layout>
     )
