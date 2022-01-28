@@ -49,10 +49,14 @@ const Blog: React.FC<Props> = ({ feed }) => {
               <Post post={post} />
             </div>
           ))}
-
-          <Link href="/Header">
-            <a>Header</a>
-          </Link>
+          <ul>
+            <li>
+              <Link href="/Header">Header</Link>
+            </li>
+            <li>
+              <Link href="/drafts">draft</Link>
+            </li>
+          </ul>
         </main>
       </div>
     </Layout>

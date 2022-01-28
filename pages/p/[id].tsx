@@ -4,7 +4,8 @@ import ReactMarkdown from "react-markdown"
 import Layout from "../../components/Layout"
 import { PostProps } from "../../components/Post"
 import prisma from "../../lib/prisma"
-import { useSession } from "next-auth/client"
+import { useSession } from "next-auth/react"
+import { Router } from "next/router"
 
 type PageProps = {
 
@@ -68,10 +69,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 }
 
-
-
+async function publishPost(id: number): Promise<void> {
+    await fetch(`http://localhost:3000/api/publish/${id}`, {
+      method: 'PUT',
+    });
+    await Router.push('/');
+}
 
 const Post: VFC<PostProps> = (props) => {
+  // const [session, loading] = useSession()
+  const { data: session } = useSession()
+  if(!session){
+    return <div>Authenticating ... (^^</div>
+  }
+  const userHasVlidSession = Boolean(session)
+  const postbelongsToUser = session?.user?.email === props.author?.email
+  let tittle = props.title
 
   let title = props.title
   if (!props.published) {
@@ -84,6 +97,9 @@ const Post: VFC<PostProps> = (props) => {
         <h2>{title}</h2>
         <p>By {props?.author?.name || "Unknown author"}</p>
         <ReactMarkdown source={props.content} />
+        {!props.published && userHasVlidSession && postbelongsToUser && (
+          <button onClick={()=>publishPost(props.id)}>Publish</button>
+        )}
       </div>
     </Layout>
   )

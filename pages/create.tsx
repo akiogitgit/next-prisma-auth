@@ -7,23 +7,16 @@ import prisma from "../lib/prisma";
 const Draft: VFC = () => {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
-
+    const [published, setPublished] = useState(false)
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         try{
-            const body = { title, content }
+            const body = { title, content, published }
             await fetch("/api/post", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             })
-            // const result = await prisma.post.create({
-            //     data: {
-            //         title: title,
-            //         content: content,
-            //         // author: { connect: { email: session?.user?.email } }
-            //     }
-            // })
             await Router.push("/drafts")
         }catch(err){
             console.error(err)
@@ -49,6 +42,8 @@ const Draft: VFC = () => {
                     onChange={(e)=>setContent(e.target.value)}
                     value={content}
                 />
+                <input type="checkbox" onClick={()=>setPublished(!published)}/>
+                {published && <p>anpan</p>}
                 <button
                     type="submit"
                     disabled={!content || !title}
