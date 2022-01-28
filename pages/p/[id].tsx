@@ -76,6 +76,13 @@ async function publishPost(id: number): Promise<void> {
     await Router.push('/');
 }
 
+// const publishPost: Promise<void> async = (id: number) => {
+//   await fetch(`http://localhost:3000/api/publish/${id}`, {
+//     method: 'PUT',
+//   });
+//   await Router.push('/');
+// }
+
 const Post: VFC<PostProps> = (props) => {
   // const [session, loading] = useSession()
   const { data: session } = useSession()

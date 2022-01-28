@@ -14,7 +14,7 @@ const Draft: VFC = () => {
         e.preventDefault()
         try{
             const body = { title, content, published }
-            await fetch("/api/post", {
+            await fetch("/api/create", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
@@ -33,6 +33,9 @@ const Draft: VFC = () => {
                     className="w-full"
                     type="text"
                     autoFocus
+                    required
+                    minLength={2}
+                    maxLength={30}
                     onChange={(e)=>setTitle(e.target.value)}
                     placeholder="title"
                     value={title}
@@ -41,10 +44,17 @@ const Draft: VFC = () => {
                     className="mt-[30px] w-full"
                     cols={50}
                     rows={8}
+                    required
+                    minLength={2}
+                    maxLength={100}
                     onChange={(e)=>setContent(e.target.value)}
                     value={content}
                 />
-                <input id="1" type="checkbox" onClick={()=>setPublished(!published)}/>
+                <input
+                    id="1"
+                    type="checkbox"
+                    checked
+                    onClick={()=>setPublished(!published)}/>
                 <label htmlFor="1">publish</label><br/>
                 <button
                     type="submit"

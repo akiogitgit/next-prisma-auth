@@ -23,8 +23,8 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
           <a className="flex gap-10">
             <div>
               {post.published ?
-                <p className="bg-blue-500 py-1 px-3 rounded-xl text-white font-bold">公開</p>:
-                <p className="bg-red-500 py-1 px-3 rounded-xl text-white font-bold">非公開</p>}
+                <p className="publish">公開</p>:
+                <p className="not-publish">非公開</p>}
             </div>
             <div>
               <h2 className="text-[20px] underline">{post.title}</h2>

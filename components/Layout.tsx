@@ -20,7 +20,7 @@ const Layout: React.FC<Props> = (props) => {
 
           <main className="mt-10">
               <p className="mb-4">こちらからログインしてください</p>
-              <button className="py-2 px-4 bg-blue-500 border border-blue-500 text-white rounded-xl font-bold duration-300 hover:bg-white hover:text-blue-500"
+              <button className="primary-btn"
                   onClick={()=>signIn()}>Login</button>
           </main>
         }
