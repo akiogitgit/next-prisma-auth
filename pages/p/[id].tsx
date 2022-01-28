@@ -27,7 +27,7 @@ export const getStaticPaths: GetStaticPaths = async() => {
   ]
   return {
     paths,
-    fallback: true
+    fallback: false
   }
 }
 
@@ -83,7 +83,7 @@ const Post: VFC<PostProps> = (props) => {
   const deletePost = async (id: number) => {
     try{
       await fetch(`http://localhost:3000/api/delete/${id}`, {
-        method: 'PUT',
+        method: 'DELETE',
       });
       await router.replace("/drafts")
     }catch(e){console.error(e)}
