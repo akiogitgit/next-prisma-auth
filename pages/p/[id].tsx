@@ -55,6 +55,7 @@ const Post: VFC<PostProps> = (props) => {
   const [Etitle, setEtitle] = useState(props.title)
   const [Econtent, setEcontent] = useState(props.content)
   const [Epublished, setEpublished] = useState(props.published)
+  
 
   const { data: session } = useSession()
   if(!session){
