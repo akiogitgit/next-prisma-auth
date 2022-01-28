@@ -34,15 +34,6 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
           </a>
         </Link>
       </div>
-      {/* <div
-        onClick={() => Router.push("/p/[id]", `/p/${post.id}`)}
-        className="p-4"
-      >
-        <h2>{post.title}</h2>
-        <p>By {authorName}</p>
-        <p>{post.content}</p>
-      </div> */}
-      
     </>
   );
 };
