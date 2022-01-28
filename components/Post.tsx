@@ -27,9 +27,9 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
                 <p className="bg-red-500 py-1 px-3 rounded-xl text-white font-bold">非公開</p>}
             </div>
             <div>
-              <h2>{post.title}</h2>
-              <p>By {authorName}</p>
+              <h2 className="text-[20px] underline">{post.title}</h2>
               <p>{post.content}</p>
+              <p className="mt-2 text-[12px] text-gray-500">By {authorName}</p>
             </div>
           </a>
         </Link>
