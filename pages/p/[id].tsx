@@ -108,7 +108,7 @@ const Post: VFC<PostProps> = (props) => {
   return (
     <Layout>
       {!(!props.published && !postbelongsToUser) ?
-        <div> {postbelongsToUser ? 
+        <div className="text-[25px]"> {postbelongsToUser ? 
           <div>
             <form
               onSubmit={updatePost}
@@ -165,10 +165,10 @@ const Post: VFC<PostProps> = (props) => {
 
             // 他人の投稿
           <div>
-            <div className="p-4 bg-white">
-              <h2 className="text-[20px] underline">{title}</h2>
-              <p>{props.content}</p>
-              <p className="mt-2 text-[12px] text-gray-500">By {props?.author?.name || "Unknown author"}</p>
+            <div className="px-6 py-4 bg-white text-[25px]">
+              <h2 className="text-[38px] underline break-words">{title}</h2>
+              <p className="break-words">{props.content}</p>
+              <p className="mt-2 text-[15px] text-gray-500">By {props?.author?.name || "Unknown author"}</p>
             </div>
             
           </div>
