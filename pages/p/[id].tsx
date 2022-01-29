@@ -150,16 +150,18 @@ const Post: VFC<PostProps> = (props) => {
                       onChange={(e)=>setEContent(e.target.value)}
                       value={Econtent}
                   />
-                  <input
-                      id="1"
-                      type="checkbox"
-                      onClick={()=>setEPublished(!Epublished)}
-                  />
-                  <label htmlFor="1">not publish</label><br/>
+                  <input type="radio" id="true" name="publish" className="mt-4"
+                        checked={Epublished} onChange={()=>setEPublished(true)}/>
+                  <label htmlFor="true">publish</label><br/>
+
+                  <input type="radio" id="false" name="publish"
+                    checked={!Epublished} onChange={()=>setEPublished(false)}/>
+                  <label htmlFor="false">not publish</label><br/>
+
                   <button
                       type="submit"
                       disabled={!Econtent || !Etitle}
-                      className="primary-btn"
+                      className="primary-btn mt-4"
                   >
                       Update 
                   </button>
@@ -169,7 +171,7 @@ const Post: VFC<PostProps> = (props) => {
                 // onClick={()=>publishPost(props.id)}
                 >Publish</button>
               )} */}
-              <button className="danger-btn"
+              <button className="danger-btn translate-x-[100px] translate-y-[-100%]"
                   onClick={()=>deletePost()}
                 >Delete
               </button>
