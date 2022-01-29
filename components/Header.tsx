@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -12,7 +12,7 @@ const Header: React.FC = () => {
 
   return (
     <div>
-      <nav className="p-8 flex justify-between">
+      <nav className="py-8 flex justify-between">
         <div className="left flex gap-3">
           <Link href="/">
             <a className="font-bold" data-active={isActive("/")}>
@@ -31,11 +31,14 @@ const Header: React.FC = () => {
           </Link>
         </div>
           <div>
-          <Link href="/Header">
-            <a className="font-bold" data-active={isActive("/drafts")}>
+            {session ? 
+            <button className="danger-btn" onClick={()=>signOut()}>LogOut</button>:
+            <button className="primary-btn" onClick={()=>signIn()}>LogIn</button>}
+          {/* <Link href="/Header">
+            <a className="font-bold">
               {session ? "LogOut" : "LogIn"}
             </a>
-          </Link>
+          </Link> */}
         </div>
         <style jsx>{`
         .left a[data-active="true"] {
