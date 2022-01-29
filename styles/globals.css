@@ -11,9 +11,9 @@
     }
 
     .publish{
-        @apply py-1 px-3 bg-blue-500 border border-blue-500 text-white rounded-xl font-bold
+        @apply inline py-1 px-3 bg-blue-500 border border-blue-500 text-white rounded-xl font-bold
     }
     .not-publish{
-        @apply py-1 px-3 bg-red-500 border border-red-500 text-white rounded-xl font-bold
+        @apply inline py-1 px-3 bg-red-500 border border-red-500 text-white rounded-xl font-bold
     }
 }

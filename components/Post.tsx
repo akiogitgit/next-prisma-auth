@@ -18,17 +18,17 @@ const Post: VFC<{ post: PostProps }> = ({ post }) => {
 
   return (
     <>
-      <div className="p-4 bg-white mt-4 shadow-md">
+      <div className="px-6 py-4 bg-white mt-4 shadow-md">
         <Link href={`/p/${post.id}`}>
-          <a className="flex gap-10">
-            <div>
+          <a className="flex flex-col sm:flex-row gap-10">
+            <div className="w-[80px] translate-y-4">
               {post.published ?
                 <p className="publish">公開</p>:
                 <p className="not-publish">非公開</p>}
             </div>
-            <div>
-              <h2 className="text-[20px] underline">{post.title}</h2>
-              <p>{post.content}</p>
+            <div className="sm:w-[50%] md:w-[60%]">
+              <h2 className="text-[20px] underline break-words">{post.title}</h2>
+              <p className="break-words">{post.content}</p>
               <p className="mt-2 text-[12px] text-gray-500">By {authorName}</p>
             </div>
           </a>
