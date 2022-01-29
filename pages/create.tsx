@@ -27,7 +27,7 @@ const Draft: VFC = () => {
 
     return(
         <Layout>
-            <form onSubmit={submitData}>
+            <form onSubmit={submitData} className="text-[25px]">
                 <h1 className="mb-3 text-[30px] font-bold">New Draft</h1>
                 <input
                     className="w-full p-2 outline-none border-2 focus:border-blue-400"

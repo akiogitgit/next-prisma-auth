@@ -36,7 +36,7 @@ const Post: VFC<{ post: PostProps }> = ({ post }) => {
             <div className="md:w-full">
               <h2 className="text-[38px] underline break-all text-center md:text-left">{post.title}</h2>
               <p className="break-all text-center md:text-left">{post.content}</p>
-              <p className="mt-2 text-[14px] text-gray-500 text-center md:text-left">By {authorName}</p>
+              <p className="mt-2 text-[15px] text-gray-500 text-center md:text-left">By {authorName}</p>
             </div>
           </a>
         </Link>
