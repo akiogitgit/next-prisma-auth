@@ -131,7 +131,7 @@ const Post: VFC<PostProps> = (props) => {
                       rows={8}
                       required
                       minLength={2}
-                      maxLength={100}
+                      maxLength={200}
                       onChange={(e)=>setEContent(e.target.value)}
                       placeholder="content"
                       value={Econtent}
