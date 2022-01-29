@@ -13,23 +13,7 @@ type PageProps = {
 
 // [id].ts は動的ルーティングだから、SSRのgetServerSideProps
 // ルーティングの情報が入ったparamsを受け取る
-// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
-//   const post = await prisma.post.findUnique({
-//     where: {
-//       id: Number(params?.id) || -1,
-//     },
-//     include: {
-//       author: {
-//         select: { name: true}
-//       }
-//     }
-//   })
-//   return {
-//     // 渡すものが一つだけなら、props = postになる
-//     props: post,
-//   }
-// }
 
 export const getStaticPaths: GetStaticPaths = async() => {
   const path = await prisma.post.findMany()
@@ -73,8 +57,10 @@ async function publishPost(id: number): Promise<void> {
     await fetch(`http://localhost:3000/api/publish/${id}`, {
       method: 'PUT',
     });
-    await Router.push('/');
+    Router.push('/');
 }
+
+
 
 // const publishPost: Promise<void> async = (id: number) => {
 //   await fetch(`http://localhost:3000/api/publish/${id}`, {
@@ -86,6 +72,20 @@ async function publishPost(id: number): Promise<void> {
 const Post: VFC<PostProps> = (props) => {
   // const [session, loading] = useSession()
   const { data: session } = useSession()
+
+  const deletePost = async () => {
+    const body = {}
+    try{
+      await fetch("api/delete",{
+        method: "DELETE",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+    }catch(e){
+      console.error(e)
+    }
+  }
+
   if(!session){
     return <div>ログインしてね ... (^^</div>
   }
