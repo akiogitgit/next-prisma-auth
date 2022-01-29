@@ -8,7 +8,7 @@ const Draft: VFC = () => {
 
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
-    const [published, setPublished] = useState(false)
+    const [published, setPublished] = useState(true)
 
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault()
@@ -53,9 +53,8 @@ const Draft: VFC = () => {
                 <input
                     id="1"
                     type="checkbox"
-                    checked
                     onClick={()=>setPublished(!published)}/>
-                <label htmlFor="1">publish</label><br/>
+                <label htmlFor="1">not publish</label><br/>
                 <button
                     type="submit"
                     disabled={!content || !title}

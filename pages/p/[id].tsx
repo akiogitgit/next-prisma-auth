@@ -73,8 +73,8 @@ const Post: VFC<PostProps> = (props) => {
   // const [session, loading] = useSession()
   const { data: session } = useSession()
 
-  const deletePost = async () => {
-    const body = {}
+  const deletePost = async (id: number) => {
+    const body = {id}
     try{
       await fetch("api/delete",{
         method: "DELETE",
@@ -102,16 +102,64 @@ const Post: VFC<PostProps> = (props) => {
   return (
     <Layout>
       {!(!props.published && !postbelongsToUser) ?
-      <div>
-        <div className="p-4 bg-white">
-          <h2 className="text-[20px] underline">{title}</h2>
-          <p>{props.content}</p>
-          <p className="mt-2 text-[12px] text-gray-500">By {props?.author?.name || "Unknown author"}</p>
-        </div>
-        {!props.published && userHasVlidSession && postbelongsToUser && (
-          <button onClick={()=>publishPost(props.id)}>Publish</button>
-        )}
-      </div> : "anpan"
+        <div> {postbelongsToUser ? 
+          <form
+            // onClick={()=>updatePost(props.id)}
+          >
+                <h1 className="text-[30px] font-bold">Edit</h1>
+                <input
+                    className="w-full"
+                    type="text"
+                    autoFocus
+                    required
+                    minLength={2}
+                    maxLength={30}
+                    // onChange={(e)=>setEtitle(e.target.value)}
+                    placeholder="title"
+                    // value={Etitle}
+                />
+                <textarea
+                    className="mt-[30px] w-full"
+                    cols={50}
+                    rows={8}
+                    required
+                    minLength={2}
+                    maxLength={100}
+                    // onChange={(e)=>setEcontent(e.target.value)}
+                    // value={Econtent}
+                />
+                <input
+                    id="1"
+                    type="checkbox"
+                    // onClick={()=>setEpublished(!Epublished)}
+                />
+                <label htmlFor="1">not publish</label><br/>
+                <button
+                    type="submit"
+                    // disabled={!Econtent || !Etitle}
+                >
+                    Update 
+                </button>
+                {!props.published && userHasVlidSession && postbelongsToUser && (
+              <button className="primary-btn" onClick={()=>publishPost(props.id)}>Publish</button>
+            )}
+            {postbelongsToUser ? 
+              <button className="danger-btn"
+                onClick={()=>deletePost(props.id)}
+              >Delete</button>
+            :""}
+            </form>:
+
+            // 他人の投稿
+          <div>
+            <div className="p-4 bg-white">
+              <h2 className="text-[20px] underline">{title}</h2>
+              <p>{props.content}</p>
+              <p className="mt-2 text-[12px] text-gray-500">By {props?.author?.name || "Unknown author"}</p>
+            </div>
+            
+          </div>
+        }</div> : "anpan"
       }
     </Layout>
   )

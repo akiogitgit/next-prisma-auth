@@ -6,7 +6,7 @@ import prisma from "../../../lib/prisma"
 // 受信したHTTP POST リクエストのbodyからタイトルとコンテントを抽出します
 export default async function handle(req, res: NextApiResponse) {
 
-        const { id, title, content, published } = req.body
+        const { id } = req.body
         const session = await getSession({ req })
         
         if (!session) {
