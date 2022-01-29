@@ -12,6 +12,9 @@ const Header: React.FC = () => {
 
   return (
     <div>
+      <Head>
+        <title>Simple Post</title>
+      </Head>
       <nav className="py-8 flex justify-between">
         <div className="left flex gap-3">
           <Link href="/">
