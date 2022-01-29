@@ -12,13 +12,13 @@ const Layout: React.FC<Props> = (props) => {
 
   return(
     <div className="px-[30px] min-h-screen bg-gray-200">
-      <div className="max-w-[1000px] mx-auto">
+      <div className="max-w-[600px] mx-auto">
         <Header />
         
         {session ?
           props.children:
 
-          <main className="mt-10">
+          <main className="mt-10 text-center">
               <p className="mb-4">こちらからログインしてください</p>
               <button className="primary-btn"
                   onClick={()=>signIn()}>Login</button>

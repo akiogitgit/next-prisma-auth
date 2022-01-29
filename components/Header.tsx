@@ -30,15 +30,10 @@ const Header: React.FC = () => {
             </a>
           </Link>
         </div>
-          <div>
+          <div className="translate-y-[-5px]">
             {session ? 
             <button className="danger-btn" onClick={()=>signOut()}>LogOut</button>:
             <button className="primary-btn" onClick={()=>signIn()}>LogIn</button>}
-          {/* <Link href="/Header">
-            <a className="font-bold">
-              {session ? "LogOut" : "LogIn"}
-            </a>
-          </Link> */}
         </div>
         <style jsx>{`
         .left a[data-active="true"] {

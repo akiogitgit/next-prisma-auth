@@ -128,9 +128,9 @@ const Post: VFC<PostProps> = (props) => {
             <form
               onSubmit={updatePost}
             >
-                  <h1 className="text-[30px] font-bold">Edit</h1>
+                  <h1 className="mb-3 text-[30px] font-bold">Edit</h1>
                   <input
-                      className="w-full"
+                      className="w-full p-2 outline-none border-2 focus:border-blue-400"
                       type="text"
                       autoFocus
                       required
@@ -141,13 +141,14 @@ const Post: VFC<PostProps> = (props) => {
                       value={Etitle}
                   />
                   <textarea
-                      className="mt-[30px] w-full"
+                      className="mt-[30px] w-full p-2 outline-none border-2 focus:border-blue-400"
                       cols={50}
                       rows={8}
                       required
                       minLength={2}
                       maxLength={100}
                       onChange={(e)=>setEContent(e.target.value)}
+                      placeholder="content"
                       value={Econtent}
                   />
                   <input type="radio" id="true" name="publish" className="mt-4"
