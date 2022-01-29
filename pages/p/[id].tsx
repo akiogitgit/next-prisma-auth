@@ -5,7 +5,7 @@ import Layout from "../../components/Layout"
 import { PostProps } from "../../components/Post"
 import prisma from "../../lib/prisma"
 import { useSession } from "next-auth/react"
-import { Router } from "next/router"
+import Router from "next/router"
 
 type PageProps = {
 
@@ -81,6 +81,9 @@ const Post: VFC<PostProps> = (props) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
+      // import {Router}のせい！
+      await Router.push("/drafts")
+
     }catch(e){
       console.error(e)
     }
@@ -91,7 +94,6 @@ const Post: VFC<PostProps> = (props) => {
   }
   const userHasVlidSession = Boolean(session)
   const postbelongsToUser = session?.user?.email === props.author?.email
-  let tittle = props.title
 
   let title = props.title
   if (!props.published) {
