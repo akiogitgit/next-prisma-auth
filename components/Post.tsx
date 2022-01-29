@@ -1,4 +1,4 @@
-import React from "react";
+import React, { VFC } from "react";
 import Router from "next/router";
 import Link from "next/dist/client/link";
 
@@ -13,7 +13,7 @@ export type PostProps = {
   published: boolean;
 };
 
-const Post: React.FC<{ post: PostProps }> = ({ post }) => {
+const Post: VFC<{ post: PostProps }> = ({ post }) => {
   const authorName = post.author ? post.author.name : "Unknown author";
 
   return (

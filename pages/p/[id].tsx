@@ -1,4 +1,4 @@
-import React, { VFC } from "react"
+import React, { useState, VFC } from "react"
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next"
 import ReactMarkdown from "react-markdown"
 import Layout from "../../components/Layout"
@@ -70,12 +70,31 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 // }
 
 const Post: VFC<PostProps> = (props) => {
-  // const [session, loading] = useSession()
+
+  const [Etitle, setETitle] = useState(props.title)
+  const [Econtent, setEContent] = useState(props.content)
+  const [Epublished, setEPublished] = useState(props.published)
   const { data: session } = useSession()
+
+  const updatePost = async (e: React.SyntheticEvent) => {
+    e.preventDefault()
+    const body = { id: props.id, title: Etitle, content: Econtent, published: Epublished }
+    try{
+      await fetch("/api/update",{
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      // import {Router}のせい！
+      await Router.push("/drafts")
+    }catch(e){
+      console.error(e)
+    }
+  }
 
   const deletePost = async () => {
     const body = { id: props.id }
-    try{
+    try{ // fetch(`http://localhost:3000/api/publish/${id})は嫌
       await fetch("/api/delete",{
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
@@ -107,7 +126,7 @@ const Post: VFC<PostProps> = (props) => {
         <div> {postbelongsToUser ? 
           <div>
             <form
-              // onClick={()=>updatePost(props.id)}
+              onSubmit={updatePost}
             >
                   <h1 className="text-[30px] font-bold">Edit</h1>
                   <input
@@ -117,9 +136,9 @@ const Post: VFC<PostProps> = (props) => {
                       required
                       minLength={2}
                       maxLength={30}
-                      // onChange={(e)=>setEtitle(e.target.value)}
+                      onChange={(e)=>setETitle(e.target.value)}
                       placeholder="title"
-                      // value={Etitle}
+                      value={Etitle}
                   />
                   <textarea
                       className="mt-[30px] w-full"
@@ -128,27 +147,28 @@ const Post: VFC<PostProps> = (props) => {
                       required
                       minLength={2}
                       maxLength={100}
-                      // onChange={(e)=>setEcontent(e.target.value)}
-                      // value={Econtent}
+                      onChange={(e)=>setEContent(e.target.value)}
+                      value={Econtent}
                   />
                   <input
                       id="1"
                       type="checkbox"
-                      // onClick={()=>setEpublished(!Epublished)}
+                      onClick={()=>setEPublished(!Epublished)}
                   />
                   <label htmlFor="1">not publish</label><br/>
                   <button
                       type="submit"
-                      // disabled={!Econtent || !Etitle}
+                      disabled={!Econtent || !Etitle}
+                      className="primary-btn"
                   >
                       Update 
                   </button>
               </form>
-              {!props.published && userHasVlidSession && postbelongsToUser && (
+              {/* {!props.published && userHasVlidSession && postbelongsToUser && (
                 <button className="primary-btn"
                 // onClick={()=>publishPost(props.id)}
                 >Publish</button>
-              )}
+              )} */}
               <button className="danger-btn"
                   onClick={()=>deletePost()}
                 >Delete
