@@ -27,8 +27,8 @@ const Post: VFC<{ post: PostProps }> = ({ post }) => {
                 <p className="not-publish">非公開</p>}
             </div>
             <div className="sm:w-[50%] md:w-[60%]">
-              <h2 className="text-[20px] underline break-words">{post.title}</h2>
-              <p className="break-words">{post.content}</p>
+              <h2 className="text-[20px] underline break-all">{post.title}</h2>
+              <p className="break-all">{post.content}</p>
               <p className="mt-2 text-[12px] text-gray-500">By {authorName}</p>
             </div>
           </a>

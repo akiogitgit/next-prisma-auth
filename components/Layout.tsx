@@ -11,7 +11,7 @@ const Layout: React.FC<Props> = (props) => {
   const { data: session } = useSession()
 
   return(
-    <div className="px-[30px] min-h-screen bg-gray-200">
+    <div className="px-[30px] min-h-screen bg-gray-200 overflow-hidden">
       <div className="max-w-[600px] mx-auto">
         <Header />
         
