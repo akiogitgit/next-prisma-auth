@@ -147,20 +147,20 @@ const Post: VFC<PostProps> = (props) => {
                   <button
                       type="submit"
                       disabled={!Econtent || !Etitle}
-                      className="primary-btn mt-4"
-                  >
-                      Update 
+                      className="primary-btn mt-4 mr-4"
+                  > Update 
                   </button>
+                  <button className="danger-btn"
+                    onClick={()=>deletePost()}
+                  >Delete
+              </button>
               </form>
               {/* {!props.published && userHasVlidSession && postbelongsToUser && (
                 <button className="primary-btn"
                 // onClick={()=>publishPost(props.id)}
                 >Publish</button>
               )} */}
-              <button className="danger-btn translate-x-[100px] translate-y-[-100%]"
-                  onClick={()=>deletePost()}
-                >Delete
-              </button>
+              
             </div>:
 
             // 他人の投稿
