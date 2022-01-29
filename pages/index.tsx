@@ -6,6 +6,7 @@ import Post, { PostProps } from "../components/Post"
 // prisma.user.create()で新しいUserレコードを作成したり、prisma.post.findMany()でデータベースから全てのPostレコードを取得したりすることができます
 import prisma from '../lib/prisma';
 
+// 思いっきりSSGやんけ
 export const getStaticProps: GetStaticProps = async () => {
   // .post.findMany はpostを全取得
   const feed = await prisma.post.findMany({
@@ -16,7 +17,10 @@ export const getStaticProps: GetStaticProps = async () => {
       },
     },
   });
-  return { props: { feed } }
+  return {
+    props: { feed },
+    revalidate: 10
+  }
 }
 
 type Props = {
