@@ -53,12 +53,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 }
 
-async function publishPost(id: number): Promise<void> {
-    await fetch(`http://localhost:3000/api/publish/${id}`, {
-      method: 'PUT',
-    });
-    Router.push('/');
-}
+// async function publishPost(id: number): Promise<void> {
+//     await fetch(`http://localhost:3000/api/publish/${id}`, {
+//       method: 'PUT',
+//     });
+//     Router.push('/');
+// }
 
 
 
@@ -73,10 +73,10 @@ const Post: VFC<PostProps> = (props) => {
   // const [session, loading] = useSession()
   const { data: session } = useSession()
 
-  const deletePost = async (id: number) => {
-    const body = {id}
+  const deletePost = async () => {
+    const body = { id: props.id }
     try{
-      await fetch("api/delete",{
+      await fetch("/api/delete",{
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -103,52 +103,55 @@ const Post: VFC<PostProps> = (props) => {
     <Layout>
       {!(!props.published && !postbelongsToUser) ?
         <div> {postbelongsToUser ? 
-          <form
-            // onClick={()=>updatePost(props.id)}
-          >
-                <h1 className="text-[30px] font-bold">Edit</h1>
-                <input
-                    className="w-full"
-                    type="text"
-                    autoFocus
-                    required
-                    minLength={2}
-                    maxLength={30}
-                    // onChange={(e)=>setEtitle(e.target.value)}
-                    placeholder="title"
-                    // value={Etitle}
-                />
-                <textarea
-                    className="mt-[30px] w-full"
-                    cols={50}
-                    rows={8}
-                    required
-                    minLength={2}
-                    maxLength={100}
-                    // onChange={(e)=>setEcontent(e.target.value)}
-                    // value={Econtent}
-                />
-                <input
-                    id="1"
-                    type="checkbox"
-                    // onClick={()=>setEpublished(!Epublished)}
-                />
-                <label htmlFor="1">not publish</label><br/>
-                <button
-                    type="submit"
-                    // disabled={!Econtent || !Etitle}
-                >
-                    Update 
-                </button>
-                {!props.published && userHasVlidSession && postbelongsToUser && (
-              <button className="primary-btn" onClick={()=>publishPost(props.id)}>Publish</button>
-            )}
-            {postbelongsToUser ? 
+          <div>
+            <form
+              // onClick={()=>updatePost(props.id)}
+            >
+                  <h1 className="text-[30px] font-bold">Edit</h1>
+                  <input
+                      className="w-full"
+                      type="text"
+                      autoFocus
+                      required
+                      minLength={2}
+                      maxLength={30}
+                      // onChange={(e)=>setEtitle(e.target.value)}
+                      placeholder="title"
+                      // value={Etitle}
+                  />
+                  <textarea
+                      className="mt-[30px] w-full"
+                      cols={50}
+                      rows={8}
+                      required
+                      minLength={2}
+                      maxLength={100}
+                      // onChange={(e)=>setEcontent(e.target.value)}
+                      // value={Econtent}
+                  />
+                  <input
+                      id="1"
+                      type="checkbox"
+                      // onClick={()=>setEpublished(!Epublished)}
+                  />
+                  <label htmlFor="1">not publish</label><br/>
+                  <button
+                      type="submit"
+                      // disabled={!Econtent || !Etitle}
+                  >
+                      Update 
+                  </button>
+              </form>
+              {!props.published && userHasVlidSession && postbelongsToUser && (
+                <button className="primary-btn"
+                // onClick={()=>publishPost(props.id)}
+                >Publish</button>
+              )}
               <button className="danger-btn"
-                onClick={()=>deletePost(props.id)}
-              >Delete</button>
-            :""}
-            </form>:
+                  onClick={()=>deletePost()}
+                >Delete
+              </button>
+            </div>:
 
             // 他人の投稿
           <div>
