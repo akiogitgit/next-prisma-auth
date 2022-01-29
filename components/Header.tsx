@@ -15,7 +15,7 @@ const Header: React.FC = () => {
       <Head>
         <title>Simple Post</title>
       </Head>
-      <nav className="py-8 flex justify-between">
+      <nav className="py-8 flex justify-between text-[20px]">
         <div className="left flex gap-3">
           <Link href="/">
             <a className="font-bold" data-active={isActive("/")}>

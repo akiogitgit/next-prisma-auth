@@ -28,7 +28,7 @@ const Blog: React.FC<Props> = ({ feed }) => {
   return (
     <Layout>
       <div>
-        <h1>Public Feed</h1>
+        <h1 className="text-[30px] font-bold">Public Feed</h1>
         <main>
           {feed.map((post) => (
             <div key={post.id} className="bg-white">

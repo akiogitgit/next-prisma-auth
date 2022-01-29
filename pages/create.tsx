@@ -46,7 +46,7 @@ const Draft: VFC = () => {
                     rows={8}
                     required
                     minLength={2}
-                    maxLength={100}
+                    maxLength={200}
                     onChange={(e)=>setContent(e.target.value)}
                     placeholder="content"
                     value={content}

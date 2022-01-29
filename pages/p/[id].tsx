@@ -49,25 +49,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     // 渡すものが一つだけなら、props = postになる
     props: post,
-    revalidate: 10,
+    revalidate: 1,
   }
 }
 
-// async function publishPost(id: number): Promise<void> {
-//     await fetch(`http://localhost:3000/api/publish/${id}`, {
-//       method: 'PUT',
-//     });
-//     Router.push('/');
-// }
-
-
-
-// const publishPost: Promise<void> async = (id: number) => {
-//   await fetch(`http://localhost:3000/api/publish/${id}`, {
-//     method: 'PUT',
-//   });
-//   await Router.push('/');
-// }
 
 const Post: VFC<PostProps> = (props) => {
 

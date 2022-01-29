@@ -5,6 +5,7 @@ import prisma from "../lib/prisma";
 import { GetServerSideProps } from "next";
 import { VFC } from "react";
 
+// getStaticProps に変えたい
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     const session = await getSession({ req })
     if(!session){
@@ -40,7 +41,7 @@ const Drafts: VFC<Props> = (props) => {
     return(
         <Layout>
             <div>
-                <h1>My Drafts</h1>
+                <h1 className="text-[30px] font-bold">My Drafts</h1>
                 <main>
                     {props.drafts.map((post)=> (
                         <div key={post.id}>
