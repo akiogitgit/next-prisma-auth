@@ -17,15 +17,17 @@ const Layout: React.FC<Props> = (props) => {
       <div className="max-w-[780px] mx-auto">
         <Header />
         
-        {(session || Local) ?
-          props.children :
+        <main>
+          {(session || Local) ?
+            props.children :
 
-          <main className="mt-10 text-center">
-              <p>こちらからログインしてください</p>
-              <button className="primary-btn mt-10"
-                  onClick={()=>signIn()}>Login</button>
-          </main>
-        }
+            <div className="mt-10 text-center">
+                <p>こちらからログインしてください</p>
+                <button className="primary-btn mt-10"
+                    onClick={()=>signIn()}>Login</button>
+            </div>
+          }
+        </main>
 
         <Footer/>
       </div>

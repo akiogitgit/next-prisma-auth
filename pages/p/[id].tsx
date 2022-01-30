@@ -36,6 +36,8 @@ export const getStaticPaths: GetStaticPaths = async() => {
   }
 }
 
+
+// getStaticPaths で作った paramsを取得
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = await prisma.post.findUnique({
     where: {
@@ -101,15 +103,12 @@ const Post: VFC<PostProps> = (props) => {
   const postbelongsToUser = session?.user?.email === props.author?.email
 
   let title = props.title
-  if (!props.published) {
-    title = `${title} (Draft)`
-  }
 
   // 他人の非公開を見れないようにしよう
   return (
     <Layout>
-      {!(!props.published && !postbelongsToUser) ?
-        <div className="text-[25px]"> {postbelongsToUser ? 
+        <div className="text-[25px]">
+          {postbelongsToUser || Local ? 
           <div>
             <form
               onSubmit={updatePost}
@@ -173,8 +172,7 @@ const Post: VFC<PostProps> = (props) => {
             </div>
             
           </div>
-        }</div> : "anpan"
-      }
+        }</div>
     </Layout>
   )
 }

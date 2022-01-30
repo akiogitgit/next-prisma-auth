@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, VFC } from "react"
 import { GetStaticProps } from "next"
 import Link from "next/dist/client/link"
-import Router from "next/router";
-
 import Layout from "../components/Layout"
 import Post, { PostProps } from "../components/Post"
+// prisma.user.create()で新しいUserレコードを作成したり、prisma.post.findMany()でデータベースから全てのPostレコードを取得したりすることができます
 import prisma from '../lib/prisma';
-import IndexPagenation from "../components/IndexPagenation"
+import { useRouter } from 'next/router';
 
 // 思いっきりSSGやんけ
-export const getStaticProps: GetStaticProps = async (context) => {
-  try{
-    await Router.push(`/pagenation/${1}`);
-  }catch(e){console.error(e)}
-
+export const getStaticProps: GetStaticProps = async () => {
   // .post.findMany はpostを全取得
   const feed = await prisma.post.findMany({
     where: { published: true },
@@ -27,7 +22,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     },
     // skipで何番目から取得するか、takeは取得数
     skip: 0, 
-    take: 5
+    take: 10
   });
   return {
     props: { feed },
@@ -40,7 +35,7 @@ type Props = {
 }
 
 //                            ( props )だと、下はprops.feedになる
-const Blog: React.FC<Props> = ({ feed }) => {
+const IndexPagenation: VFC<Props> = ({ feed }) => {
   return (
     <Layout>
       <div>
@@ -51,15 +46,10 @@ const Blog: React.FC<Props> = ({ feed }) => {
               <Post post={post} />
             </div>
           ))}
-          <div className="float-right primary-btn mt-10">
-            <Link href={`/pagenation/${2}`}>
-                <a>2＞</a>
-            </Link>
-          </div>
         </main>
       </div>
     </Layout>
   )
 }
 
-export default Blog
+export default IndexPagenation
