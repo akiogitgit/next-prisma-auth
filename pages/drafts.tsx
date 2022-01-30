@@ -1,11 +1,13 @@
-import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post"
-import { useSession, getSession } from "next-auth/react";
-import prisma from "../lib/prisma";
+import { useRouter } from "next/router";
 import { GetServerSideProps, GetStaticProps } from "next";
 import { useState, VFC } from "react";
+import { useSession, getSession } from "next-auth/react";
+import Link from "next/dist/client/link"
+
+import Layout from "../components/Layout";
+import Post, { PostProps } from "../components/Post"
+import prisma from "../lib/prisma";
 import Local from "../lib/Local";
-import { useRouter } from "next/router";
 
 // getStaticProps に変えたい。
 // ページ数を受け取りたい
@@ -39,6 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
         orderBy: {
             id:"desc"
         },
+        take: 5
         // skip: Number(index)
     })
     return {
@@ -77,6 +80,11 @@ const Drafts: VFC<Props> = (props) => {
                         <button className="float-right" type="submit" onClick={()=>setIndex(3)}>2</button>
                     </form>
                 </main>
+                <div className="float-right primary-btn mt-10">
+                    <Link href={`/draftpagenation/${2}`}>
+                        <a>2＞</a>
+                    </Link>
+                </div>
             </div>
         </Layout>
     )
