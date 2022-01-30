@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { GetStaticProps } from "next"
 import Link from "next/dist/client/link"
 import Layout from "../components/Layout"
@@ -16,10 +16,16 @@ export const getStaticProps: GetStaticProps = async () => {
         select: { name: true },
       },
     },
+    orderBy: {
+      id: "desc"
+    },
+    // skipで何番目から取得するか、takeは取得数
+    skip: 0, 
+    take: 10
   });
   return {
     props: { feed },
-    revalidate: 10
+    revalidate: 1
   }
 }
 
@@ -29,6 +35,8 @@ type Props = {
 
 //                            ( props )だと、下はprops.feedになる
 const Blog: React.FC<Props> = ({ feed }) => {
+
+  const [index, setIndex] = useState(0);
   return (
     <Layout>
       <div>
@@ -39,6 +47,9 @@ const Blog: React.FC<Props> = ({ feed }) => {
               <Post post={post} />
             </div>
           ))}
+          <form action=""></form>
+          <button className="float-left" type="submit" onClick={()=>setIndex(index-1)}>prev</button>
+          <button className="float-right" type="submit" onClick={()=>setIndex(index+1)}>next</button>
         </main>
       </div>
     </Layout>

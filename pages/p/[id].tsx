@@ -6,6 +6,7 @@ import { PostProps } from "../../components/Post"
 import prisma from "../../lib/prisma"
 import { useSession } from "next-auth/react"
 import Router from "next/router"
+import Local from "../../lib/Local"
 
 type PageProps = {
 
@@ -93,7 +94,7 @@ const Post: VFC<PostProps> = (props) => {
     }
   }
 
-  if(!session){
+  if(!session && !Local){
     return <div>ログインしてね ... (^^</div>
   }
   const userHasVlidSession = Boolean(session)

@@ -4,11 +4,12 @@ import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 import { GetServerSideProps } from "next";
 import { VFC } from "react";
+import Local from "../lib/Local";
 
 // getStaticProps に変えたい
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     const session = await getSession({ req })
-    if(!session){
+    if(!session && !Local){
         res.statusCode = 403
         return{
             props: {
@@ -19,13 +20,16 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
     const drafts = await prisma.post.findMany({
         where: {
-            author: { email: session.user.email },
+            author: { email: !Local ? session.user.email : "test" },
             // published: false, // 非公開のを表示
         },
         include: {
             author: {
                 select: { name: true }
             }
+        },
+        orderBy: {
+            id:"desc"
         }
     })
     return {

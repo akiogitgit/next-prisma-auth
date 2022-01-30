@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import Header from "./Header";
 import { useSession, signIn } from "next-auth/react"
 import Footer from "./Footer";
+import Local from "../lib/Local"
 
 type Props = {
   children: ReactNode;
@@ -16,8 +17,8 @@ const Layout: React.FC<Props> = (props) => {
       <div className="max-w-[780px] mx-auto">
         <Header />
         
-        {(session) ?
-          props.children:
+        {(session || Local) ?
+          props.children :
 
           <main className="mt-10 text-center">
               <p>こちらからログインしてください</p>
