@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
             orderBy: {
                 id:"desc"
             },
-            take: 5
+            take: 10
             // skip: Number(index)
         })
         return {
@@ -90,7 +90,7 @@ const Drafts: VFC<Props> = ({ drafts, postNum }) => {
                         ))}
                     </main>
 
-                    {postNum > 5 ?
+                    {postNum > 10 ?
                         <div className="float-right primary-btn mt-10">
                             <Link href={`/draftPagenation/${2}`}>
                                 <a>2＞</a>

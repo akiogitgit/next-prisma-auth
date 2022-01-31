@@ -58,13 +58,16 @@ const Draft: VFC = () => {
 
                 {session || Local ?
                     <div>
-                        <input type="radio" id="true" name="publish" className="mt-4"
-                                checked={published} onChange={()=>setPublished(true)}/>
-                        <label htmlFor="true">publish</label><br/>
-
-                        <input type="radio" id="false" name="publish"
-                                checked={!published} onChange={()=>setPublished(false)}/>
-                        <label htmlFor="false">not publish</label>
+                        <label htmlFor="true" className="cursor-pointer">
+                            <input type="radio" id="true" name="publish" className="mt-4"
+                                    checked={published} onChange={()=>setPublished(true)}/>
+                            publish
+                        </label><br/>
+                        <label htmlFor="false" className="cursor-pointer">
+                            <input type="radio" id="false" name="publish"
+                                    checked={!published} onChange={()=>setPublished(false)}/>
+                            not publish
+                        </label>
                     </div>:""
                 }<br/>
 

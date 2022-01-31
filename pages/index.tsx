@@ -14,6 +14,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
     await Router.push(`/pagenation/${1}`);
   }catch(e){console.error(e)}
 
+  const posts = await prisma.post.aggregate({
+    _count: {
+        published: true
+    },
+  })
+  const postNum = posts._count.published
+
   // .post.findMany はpostを全取得
   const feed = await prisma.post.findMany({
     where: { published: true },
@@ -27,20 +34,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
     },
     // skipで何番目から取得するか、takeは取得数
     skip: 0, 
-    take: 5
+    take: 10
   });
   return {
-    props: { feed },
+    props: { feed, postNum },
     revalidate: 1
   }
 }
 
 type Props = {
   feed: PostProps[]
+  postNum: Number
 }
 
 //                            ( props )だと、下はprops.feedになる
-const Blog: React.FC<Props> = ({ feed }) => {
+const Blog: React.FC<Props> = ({ feed, postNum }) => {
   return (
     <Layout>
       <div>
@@ -51,11 +59,13 @@ const Blog: React.FC<Props> = ({ feed }) => {
               <Post post={post} />
             </div>
           ))}
-          <div className="float-right primary-btn mt-10">
-            <Link href={`/pagenation/${2}`}>
-                <a>2＞</a>
-            </Link>
-          </div>
+          {postNum > 10 ?
+            <div className="float-right primary-btn mt-10">
+              <Link href={`/pagenation/${2}`}>
+                  <a>2＞</a>
+              </Link>
+            </div>: ""
+          }
         </main>
       </div>
     </Layout>

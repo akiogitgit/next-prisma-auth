@@ -133,13 +133,17 @@ const Post: VFC<PostProps> = (props) => {
                       placeholder="content"
                       value={Econtent}
                   />
-                  <input type="radio" id="true" name="publish" className="mt-4"
-                        checked={Epublished} onChange={()=>setEPublished(true)}/>
-                  <label htmlFor="true">publish</label><br/>
 
-                  <input type="radio" id="false" name="publish"
-                    checked={!Epublished} onChange={()=>setEPublished(false)}/>
-                  <label htmlFor="false">not publish</label><br/>
+                  <label htmlFor="true" className="cursor-pointer">
+                      <input type="radio" id="true" name="publish" className="mt-4"
+                              checked={Epublished} onChange={()=>setEPublished(true)}/>
+                      publish
+                  </label><br/>
+                  <label htmlFor="false" className="cursor-pointer">
+                      <input type="radio" id="false" name="publish"
+                              checked={!Epublished} onChange={()=>setEPublished(false)}/>
+                      not publish
+                  </label><br/>
 
                   <button
                       type="submit"

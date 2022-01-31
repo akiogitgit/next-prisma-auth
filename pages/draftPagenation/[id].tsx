@@ -10,25 +10,7 @@ import Login from "../../components/Login"
 import Post, { PostProps } from "../../components/Post"
 import prisma from "../../lib/prisma"
 
-// [id].ts は動的ルーティングだから、SSRのgetServerSideProps
-// ルーティングの情報が入ったparamsを受け取る
-
-// export const getStaticPaths: GetStaticPaths = async() => {
-//     const path = await prisma.post.findMany({
-//         where: { published: true }
-//     })
-//     const paths = path.map((post)=>({
-//         params:{
-//             id: String(post.id)
-//         },
-//     }))
-//     return {
-//         paths,
-//         fallback: true
-//     }
-// }
-
-    // getStaticPaths で作った paramsを取得
+// getStaticPaths で作った paramsを取得
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
     const session = await getSession({req})
 
@@ -56,8 +38,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
         },
         // skipで何番目から取得するか、takeは取得数
         // skip: 0, 
-        skip: (Number(params.id)-1)*5, 
-        take: 5
+        skip: (Number(params.id)-1)*10,
+        take: 10
     });
     return {
         props: {
@@ -100,7 +82,7 @@ const FilterPost: VFC<Props> = ({ feed, index, posts }) => {
                             </Link>
                         </div> : ""
                     }
-                    {(next-1)*5 < posts ? 
+                    {(next-1)*10 < posts ? 
                         <div className="float-right primary-btn mt-10">
                             <Link href={`/draftPagenation/${next}`}>
                                 <a>{next}＞</a>
