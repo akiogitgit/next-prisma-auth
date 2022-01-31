@@ -17,5 +17,5 @@ if (process.env.NODE_ENV === 'production') {
 
 export default prisma;
 
-// この prismaを読み込むだけで
+// この prismaを読み込むと
 // データベースにアクセスする必要があるときはいつでも、必要なファイルにprismaインスタンスをインポートすることができます。
