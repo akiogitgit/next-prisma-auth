@@ -96,9 +96,6 @@ const Post: VFC<PostProps> = (props) => {
     }
   }
 
-  if(!session && !Local){
-    return <div>ログインしてね ... (^^</div>
-  }
   const userHasVlidSession = Boolean(session)
   const postbelongsToUser = session?.user?.email === props.author?.email
 
@@ -155,23 +152,16 @@ const Post: VFC<PostProps> = (props) => {
                   >Delete
               </button>
               </form>
-              {/* {!props.published && userHasVlidSession && postbelongsToUser && (
-                <button className="primary-btn"
-                // onClick={()=>publishPost(props.id)}
-                >Publish</button>
-              )} */}
-              
             </div>:
 
             // 他人の投稿
-          <div>
-            <div className="px-6 py-4 bg-white text-[25px]">
-              <h2 className="text-[38px] underline break-words">{title}</h2>
-              <p className="break-words">{props.content}</p>
-              <p className="mt-2 text-[15px] text-gray-500">By {props?.author?.name || "Unknown author"}</p>
+            <div>
+              <div className="px-6 py-4 bg-white text-[25px]">
+                <h2 className="text-[38px] underline break-words">{title}</h2>
+                <p className="break-words">{props.content}</p>
+                <p className="mt-2 text-[15px] text-gray-500">By {props?.author?.name || "Unknown author"}</p>
+              </div>
             </div>
-            
-          </div>
         }</div>
     </Layout>
   )

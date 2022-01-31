@@ -1,14 +1,18 @@
 import React, { useState, VFC } from "react";
-import Layout from "../components/Layout";
 import Router from "next/router";
 import Link from "next/dist/client/link";
-import prisma from "../lib/prisma";
+import { useSession } from "next-auth/react";
+
+import Layout from "../components/Layout";
+import Local from "../lib/Local";
 
 const Draft: VFC = () => {
 
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [published, setPublished] = useState(true)
+
+    const { data: session } = useSession()
 
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault()
@@ -19,7 +23,7 @@ const Draft: VFC = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             })
-            await Router.push("/drafts")
+            await Router.push("/")
         }catch(err){
             console.error(err)
         }
@@ -52,13 +56,18 @@ const Draft: VFC = () => {
                     value={content}
                 />
 
-                <input type="radio" id="true" name="publish" className="mt-4"
-                        checked={published} onChange={()=>setPublished(true)}/>
-                <label htmlFor="true">publish</label><br/>
+                {session || Local ?
+                    <div>
+                        <input type="radio" id="true" name="publish" className="mt-4"
+                                checked={published} onChange={()=>setPublished(true)}/>
+                        <label htmlFor="true">publish</label><br/>
 
-                <input type="radio" id="false" name="publish"
-                        checked={!published} onChange={()=>setPublished(false)}/>
-                <label htmlFor="false">not publish</label><br/>
+                        <input type="radio" id="false" name="publish"
+                                checked={!published} onChange={()=>setPublished(false)}/>
+                        <label htmlFor="false">not publish</label>
+                    </div>:""
+                }<br/>
+
                 <button
                     className="primary-btn mt-4 mr-4"
                     type="submit"

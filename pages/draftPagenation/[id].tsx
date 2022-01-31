@@ -6,6 +6,7 @@ import Link from "next/link"
 
 import Local from "../../lib/Local"
 import Layout from "../../components/Layout"
+import Login from "../../components/Login"
 import Post, { PostProps } from "../../components/Post"
 import prisma from "../../lib/prisma"
 
@@ -76,46 +77,38 @@ type Props = {
 
 const FilterPost: VFC<Props> = ({ feed, index, posts }) => {
 
-    // const [Etitle, setETitle] = useState(props.title)
-    // const [Econtent, setEContent] = useState(props.content)
-    // const [Epublished, setEPublished] = useState(props.published)
-    const { data: session } = useSession()
     const prev = Number(index) - 1
     const next = Number(index) + 1
 
-    if(!session && !Local){
-    return <div>ログインしてね ... (^^</div>
-    }
-    // const userHasVlidSession = Boolean(session)
-    // const postbelongsToUser = session?.user?.email === props.author?.email
-
     return (
         <Layout>
-            <div>
-                <h1 className="text-[30px] font-bold">My Drafts</h1>
-                <main>
-                    {feed ? feed.map((post) => (
-                        <div key={post.id} className="bg-white">
-                        <Post post={post} />
-                        </div>
-                    )):""}
-                </main>
+            <Login>
+                <div>
+                    <h1 className="text-[30px] font-bold">My Drafts</h1>
+                    <main>
+                        {feed ? feed.map((post) => (
+                            <div key={post.id} className="bg-white">
+                            <Post post={post} />
+                            </div>
+                        )):""}
+                    </main>
 
-                {prev > 0 ?
-                    <div className="float-left primary-btn mt-10">
-                        <Link href={`/draftPagenation/${prev}`}>
-                            <a>＜{prev}</a>
-                        </Link>
-                    </div> : ""
-                }
-                {(next-1)*5 < posts ? 
-                    <div className="float-right primary-btn mt-10">
-                        <Link href={`/draftPagenation/${next}`}>
-                            <a>{next}＞</a>
-                        </Link>
-                    </div> : ""
-                }
-            </div>
+                    {prev > 0 ?
+                        <div className="float-left primary-btn mt-10">
+                            <Link href={`/draftPagenation/${prev}`}>
+                                <a>＜{prev}</a>
+                            </Link>
+                        </div> : ""
+                    }
+                    {(next-1)*5 < posts ? 
+                        <div className="float-right primary-btn mt-10">
+                            <Link href={`/draftPagenation/${next}`}>
+                                <a>{next}＞</a>
+                            </Link>
+                        </div> : ""
+                    }
+                </div>
+            </Login>
         </Layout>
     )
 }

@@ -18,15 +18,7 @@ const Layout: React.FC<Props> = (props) => {
         <Header />
         
         <main>
-          {(session || Local) ?
-            props.children :
-
-            <div className="mt-10 text-center">
-                <p>こちらからログインしてください</p>
-                <button className="primary-btn mt-10"
-                    onClick={()=>signIn()}>Login</button>
-            </div>
-          }
+            {props.children}
         </main>
 
         <Footer/>

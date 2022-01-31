@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react"
-import Router from "next/router";
 import Local from "../../../lib/Local";
 import prisma from "../../../lib/prisma"
 
@@ -8,10 +7,10 @@ import prisma from "../../../lib/prisma"
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
         const { title, content, published } = req.body
         const session = await getSession({ req })
-        if (!session && !Local) {
-            res.status(401).json({ message: 'Not authenticated' })
-            return
-        }
+        // if (!session && !Local) {
+        //     res.status(401).json({ message: 'Not authenticated' })
+        //     return
+        // }
         // 自分が登録されてるか確認
         if(session){
             const user = await prisma.user.findFirst({
@@ -32,7 +31,12 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
             data: {
                 title: title,
                 content: content,
-                author: { connect: { email: !session ? "test" : session?.user?.email} },
+                author: {
+                    connect: {
+                        email: Local ? "test" :
+                                (!session ? "guest" : session?.user?.email)
+                    }
+                },
                 published: published
             },
         })

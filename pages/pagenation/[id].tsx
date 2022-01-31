@@ -105,18 +105,8 @@ type Props = {
 
 const FilterPost: VFC<Props> = ({ feed, index, posts }) => {
 
-    // const [Etitle, setETitle] = useState(props.title)
-    // const [Econtent, setEContent] = useState(props.content)
-    // const [Epublished, setEPublished] = useState(props.published)
-    const { data: session } = useSession()
     const prev = Number(index) - 1
     const next = Number(index) + 1
-
-    if(!session && !Local){
-    return <div>ログインしてね ... (^^</div>
-    }
-    // const userHasVlidSession = Boolean(session)
-    // const postbelongsToUser = session?.user?.email === props.author?.email
 
     return (
         <Layout>
