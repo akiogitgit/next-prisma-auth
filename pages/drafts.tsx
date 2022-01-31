@@ -27,7 +27,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
             }
         }
     }
+    // draft数
+    const posts = await prisma.post.aggregate({
+        _count: {
+            published: true,
+        },
+        where: {
+            author: { email: !Local ? session?.user?.email : "test" },
+        }
+    })
+    const postNum = posts._count.published
 
+
+    // 最新の５個取得
     const drafts = await prisma.post.findMany({
         where: {
             author: { email: !Local ? session?.user?.email : "test" },
@@ -45,46 +57,45 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
         // skip: Number(index)
     })
     return {
-        props: { drafts }
+        props: { drafts, postNum }
     }
 }
 
 type Props = {
     drafts: PostProps[]
+    postNum: Number
 }
 
 
-const Drafts: VFC<Props> = (props) => {
+const Drafts: VFC<Props> = ({ drafts, postNum }) => {
 
-    const [index, setIndex] = useState(3);
-    const router = useRouter()
-    const handlePage = () => {
-        router.push({
-            pathname: "/drafts",
-            query: {index: index}
-        })
-    }
+    // const [index, setIndex] = useState(3);
+    // const router = useRouter()
+    // const handlePage = () => {
+    //     router.push({
+    //         pathname: "/drafts",
+    //         query: {index: index}
+    //     })
+    // }
     return(
         <Layout>
             <div>
                 <h1 className="text-[30px] font-bold">My Drafts</h1>
                 <main>
-                    <p>{index}</p>
-                    {props.drafts.map((post)=> (
+                    {drafts.map((post)=> (
                         <div key={post.id}>
                             <Post post={post}/>
                         </div>
                     ))}
-                    <form onSubmit={handlePage}>
-                        <button className="float-left" type="submit" onClick={()=>setIndex(0)}>0へ</button>
-                        <button className="float-right" type="submit" onClick={()=>setIndex(3)}>2</button>
-                    </form>
                 </main>
-                <div className="float-right primary-btn mt-10">
-                    <Link href={`/draftpagenation/${2}`}>
-                        <a>2＞</a>
-                    </Link>
-                </div>
+
+                {postNum > 5 ?
+                    <div className="float-right primary-btn mt-10">
+                        <Link href={`/draftPagenation/${2}`}>
+                            <a>2＞</a>
+                        </Link>
+                    </div> : ""
+                }
             </div>
         </Layout>
     )
