@@ -50,7 +50,8 @@ import Providers from 'next-auth/providers'
 export default NextAuth({
     providers: [
         // http://localhost:3000/api/auth/providersで、callback分かる
-        // http://sinple-post.vercel/api/auth/providersで、callback分かる
+        // http://sinple-post.vercel.app/api/auth/providersで、callback分かる
+        // https://simple-post-git-main-akiogitgit.vercel.app/api/auth/providers
         GithubProvider({
             clientId: process.env.GITHUB_ID,
             clientSecret: process.env.GITHUB_SECRET,

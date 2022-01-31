@@ -16,10 +16,11 @@ export type PostProps = {
 const Post: VFC<{ post: PostProps }> = ({ post }) => {
   const authorName = post.author ? post.author.name : "Unknown author";
 
-  if(post.title.length > 20) {
+  // Cannot read properties of null (reading 'length' はここ？
+  if(post.title && (post.title.length > 20)) {
     post.title = post.title.substring(0, 20) + "..."
   }
-  if(post.content.length > 50) {
+  if(post.content && (post.content.length > 50)) {
     post.content = post.content.substring(0, 50) + "..."
   }
 

@@ -12,7 +12,7 @@ import prisma from "../../lib/prisma"
 
 // getStaticPaths で作った paramsを取得
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
-    const session = await getSession({req})
+    const session = await getSession({ req })
 
     const posts = await prisma.post.aggregate({
         _count: {
