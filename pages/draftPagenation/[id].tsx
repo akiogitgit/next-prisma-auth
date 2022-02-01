@@ -9,6 +9,8 @@ import Layout from "../../components/Layout"
 import Login from "../../components/Login"
 import Post, { PostProps } from "../../components/Post"
 import prisma from "../../lib/prisma"
+import SlideInRight from "../../components/SlideInRight"
+import SlideInLeft from "../../components/SlideInLeft"
 
 // getStaticPaths で作った paramsを取得
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
@@ -66,28 +68,32 @@ const FilterPost: VFC<Props> = ({ feed, index, posts }) => {
         <Layout>
             <Login>
                 <div>
-                    <h1 className="text-[30px] font-bold">My Drafts</h1>
+                    <h1 className="text-[30px] font-bold slide-right">My Drafts</h1>
                     <main>
                         {feed ? feed.map((post) => (
-                            <div key={post.id} className="bg-white">
-                            <Post post={post} />
+                            <div key={post.id} className="fadeIn-deley">
+                                <Post post={post} />
                             </div>
                         )):""}
                     </main>
 
                     {prev > 0 ?
-                        <div className="float-left primary-btn mt-10">
-                            <Link href={`/draftPagenation/${prev}`}>
-                                <a>＜{prev}</a>
-                            </Link>
-                        </div> : ""
+                        <SlideInLeft>
+                            <div className="float-left mt-10">
+                                <Link href={`/draftPagenation/${prev}`}>
+                                    <a className="primary-btn">＜{prev}</a>
+                                </Link>
+                            </div>
+                        </SlideInLeft> : ""
                     }
                     {(next-1)*10 < posts ? 
-                        <div className="float-right primary-btn mt-10">
-                            <Link href={`/draftPagenation/${next}`}>
-                                <a>{next}＞</a>
-                            </Link>
-                        </div> : ""
+                        <SlideInRight>
+                            <div className="float-right mt-10">
+                                <Link href={`/draftPagenation/${next}`}>
+                                    <a className="primary-btn">{next}＞</a>
+                                </Link>
+                            </div>
+                        </SlideInRight> : ""
                     }
                 </div>
             </Login>

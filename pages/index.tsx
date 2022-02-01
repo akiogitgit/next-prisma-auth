@@ -6,6 +6,7 @@ import Router from "next/router";
 import Layout from "../components/Layout"
 import Post, { PostProps } from "../components/Post"
 import prisma from '../lib/prisma';
+import SlideInRight from "../components/SlideInRight";
 
 // 思いっきりSSGやんけ
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -51,19 +52,21 @@ const Blog: React.FC<Props> = ({ feed, postNum }) => {
   return (
     <Layout>
       <div>
-        <h1 className="text-[30px] font-bold">Public Feed</h1>
+        <h1 className="text-[30px] font-bold slide-right">Public Feed</h1>
         <main>
           {feed.map((post) => (
-            <div key={post.id}>
+            <div key={post.id} className="fadeIn-deley">
               <Post post={post} />
             </div>
           ))}
           {postNum > 10 ?
-            <div className="float-right primary-btn mt-10">
-              <Link href={`/pagenation/${2}`}>
-                  <a>2＞</a>
-              </Link>
-            </div>: ""
+            <SlideInRight>
+              <div className="float-right mt-10">
+                <Link href={`/pagenation/${2}`}>
+                    <a className="primary-btn">2＞</a>
+                </Link>
+              </div>
+            </SlideInRight>: ""
           }
         </main>
       </div>

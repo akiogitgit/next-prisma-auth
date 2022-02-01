@@ -29,7 +29,7 @@ const Post: VFC<{ post: PostProps }> = ({ post }) => {
       <div className="px-6 py-4 mt-8 bg-white shadow-md text-[25px]">
         <Link href={`/p/${post.id}`}>
           <a className="flex flex-col md:flex-row gap-10 md:ml-0">
-            <div className="w-[140px] translate-y-4 text-center mx-auto">
+            <div className="w-[160px] translate-y-4 text-center mx-auto">
               {post.published ?
                 <p className="publish">公開</p>:
                 <p className="not-publish">非公開</p>}

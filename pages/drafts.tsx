@@ -9,6 +9,7 @@ import Login from "../components/Login";
 import Post, { PostProps } from "../components/Post"
 import prisma from "../lib/prisma";
 import Local from "../lib/Local";
+import SlideInRight from "../components/SlideInRight";
 
 // getStaticProps に変えたい。
 // ページ数を受け取りたい
@@ -81,21 +82,23 @@ const Drafts: VFC<Props> = ({ drafts, postNum }) => {
         <Layout>
             <Login>
                 <div>
-                    <h1 className="text-[30px] font-bold">My Drafts</h1>
+                    <h1 className="text-[30px] font-bold slide-right">My Drafts</h1>
                     <main>
                         {drafts.map((post)=> (
-                            <div key={post.id}>
+                            <div key={post.id} className="fadeIn-deley">
                                 <Post post={post}/>
                             </div>
                         ))}
                     </main>
 
                     {postNum > 10 ?
-                        <div className="float-right primary-btn mt-10">
-                            <Link href={`/draftPagenation/${2}`}>
-                                <a>2＞</a>
-                            </Link>
-                        </div> : ""
+                        <SlideInRight>
+                            <div className="float-right mt-10">
+                                <Link href={`/draftPagenation/${2}`}>
+                                    <a className="primary-btn">2＞</a>
+                                </Link>
+                            </div>
+                        </SlideInRight> : ""
                     }
                 </div>
             </Login>

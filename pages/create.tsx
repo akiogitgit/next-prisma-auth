@@ -32,9 +32,9 @@ const Draft: VFC = () => {
     return(
         <Layout>
             <form onSubmit={submitData} className="text-[25px]">
-                <h1 className="mb-3 text-[30px] font-bold">New Draft</h1>
+                <h1 className="mb-3 text-[30px] font-bold slide-right">New Draft</h1>
                 <input
-                    className="w-full p-2 outline-none border-2 focus:border-blue-400"
+                    className="w-full p-2 outline-none border-2 fadeIn-deley focus:border-blue-400"
                     type="text"
                     autoFocus
                     required
@@ -45,7 +45,7 @@ const Draft: VFC = () => {
                     value={title}
                 />
                 <textarea
-                    className="mt-[30px] w-full p-2 outline-none border-2 focus:border-blue-400"
+                    className="mt-[30px] w-full p-2 outline-none border-2 fadeIn-deley focus:border-blue-400"
                     cols={50}
                     rows={8}
                     required
@@ -56,31 +56,35 @@ const Draft: VFC = () => {
                     value={content}
                 />
 
-                {session || Local ?
-                    <div>
-                        <label htmlFor="true" className="cursor-pointer">
-                            <input type="radio" id="true" name="publish" className="mt-4"
-                                    checked={published} onChange={()=>setPublished(true)}/>
-                            publish
-                        </label><br/>
-                        <label htmlFor="false" className="cursor-pointer">
-                            <input type="radio" id="false" name="publish"
-                                    checked={!published} onChange={()=>setPublished(false)}/>
-                            not publish
-                        </label>
-                    </div>:""
-                }<br/>
+                <div className="fadeIn-deley">
+                    {session || Local ?
+                        <div>
+                            <label htmlFor="true" className="cursor-pointer">
+                                <input type="radio" id="true" name="publish" className="mt-4"
+                                        checked={published} onChange={()=>setPublished(true)}/>
+                                publish
+                            </label><br/>
+                            <label htmlFor="false" className="cursor-pointer">
+                                <input type="radio" id="false" name="publish"
+                                        checked={!published} onChange={()=>setPublished(false)}/>
+                                not publish
+                            </label>
+                        </div>:""
+                    }<br/>
+                </div>
 
-                <button
-                    className="primary-btn mt-4 mr-4"
-                    type="submit"
-                    disabled={!content || !title}
-                >
-                    Create 
-                </button>
-                <Link href="/">
-                    <a className="danger-btn">Cancel</a>
-                </Link>
+                <div className="fadeIn-deley">
+                    <button
+                        className="primary-btn mt-4 mr-4 fadeIn-deley"
+                        type="submit"
+                        disabled={!content || !title}
+                    >
+                        Create 
+                    </button>
+                        <Link href="/">
+                            <a className="danger-btn">Cancel</a>
+                        </Link>
+                </div>
             </form>
         </Layout>
     )

@@ -8,6 +8,8 @@ import Local from "../../lib/Local"
 import Layout from "../../components/Layout"
 import Post, { PostProps } from "../../components/Post"
 import prisma from "../../lib/prisma"
+import SlideInRight from "../../components/SlideInRight"
+import SlideInLeft from "../../components/SlideInLeft"
 
 // [id].ts は動的ルーティングだから、SSRのgetServerSideProps
 // ルーティングの情報が入ったparamsを受け取る
@@ -46,11 +48,6 @@ export const getStaticPaths: GetStaticPaths = async() => {
             id: String(post.id)
         },
     }))
-    // const paths1 = [
-    //     { params: { id: '1' } },
-    //     { params: { id: '2' } },
-    //     { params: { id: '3' } }
-    // ]
     return {
         paths,
         fallback: true
@@ -111,29 +108,33 @@ const FilterPost: VFC<Props> = ({ feed, index, posts }) => {
     return (
         <Layout>
             <div>
-                <h1 className="text-[30px] font-bold">Public Feed</h1>
+                <h1 className="text-[30px] font-bold slide-right">Public Feed</h1>
                 <main>
                     {feed ? feed.map((post) => (
-                        <div key={post.id}>
+                        <div key={post.id} className="fadeIn-deley">
                             <Post post={post} />
                         </div>
                     )):""}
                 </main>
 
                 {prev > 0 ?
-                    <div className="float-left primary-btn mt-10">
-                        <Link href={`/pagenation/${prev}`}>
-                            <a>＜{prev}</a>
-                        </Link>
-                    </div> : ""
+                    <SlideInLeft>
+                        <div className="float-left mt-10">
+                            <Link href={`/pagenation/${prev}`}>
+                                <a className="primary-btn">＜{prev}</a>
+                            </Link>
+                        </div>
+                    </SlideInLeft> : ""
                 }
                 {/* countで、正確に測れない? */}
                 {((next+1)*10 < posts) ? 
-                    <div className="float-right primary-btn mt-10">
-                        <Link href={`/pagenation/${next}`}>
-                            <a>{next}＞</a>
-                        </Link>
-                    </div> : ""
+                    <SlideInRight>
+                        <div className="float-right mt-10">
+                            <Link href={`/pagenation/${next}`}>
+                                <a className="primary-btn">{next}＞</a>
+                            </Link>
+                        </div>
+                    </SlideInRight> : ""
                 }
             </div>
         </Layout>

@@ -16,4 +16,38 @@
     .not-publish{
         @apply inline py-1 px-3 bg-red-500 border border-red-500 text-white rounded-xl font-bold
     }
+
+    .slide-right{
+        transform: translateX(-70px);
+        animation: key-right 1s 0.6s both;
+    }
+    @keyframes key-right {
+        0%{ transform: translateX(-70px); opacity:0 }
+        100%{ transform: translateX(0px); opacity:1 }
+    }
+
+/* 6個以降はなし(postsで見える範囲だけやる。あとは、FadeInにまかせる) */
+    .fadeIn-deley{
+        transform: translateY(0);
+        opacity: 1;
+    }
+    .fadeIn-deley:nth-child(1){
+        animation: key-fade 1s 0.75s both;
+    }
+    .fadeIn-deley:nth-child(2){
+        animation: key-fade 1s 0.9s both;
+    }
+    .fadeIn-deley:nth-child(3){
+        animation: key-fade 1s 1.05s both;
+    }
+    .fadeIn-deley:nth-child(4){
+        animation: key-fade 1s 1.2s both;
+    }
+    .fadeIn-deley:nth-child(5){
+        animation: key-fade 1s 1.35s both;
+    }
+    @keyframes key-fade {
+        0%{ transform: translateY(50px); opacity:0 }
+        100%{ transform: translateY(0px); opacity:1 }
+    }
 }
