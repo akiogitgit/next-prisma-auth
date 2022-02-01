@@ -114,7 +114,7 @@ const FilterPost: VFC<Props> = ({ feed, index, posts }) => {
                 <h1 className="text-[30px] font-bold">Public Feed</h1>
                 <main>
                     {feed ? feed.map((post) => (
-                        <div key={post.id} className="bg-white">
+                        <div key={post.id}>
                             <Post post={post} />
                         </div>
                     )):""}

@@ -6,7 +6,6 @@ import Router from "next/router";
 import Layout from "../components/Layout"
 import Post, { PostProps } from "../components/Post"
 import prisma from '../lib/prisma';
-import IndexPagenation from "../components/IndexPagenation"
 
 // 思いっきりSSGやんけ
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -55,7 +54,7 @@ const Blog: React.FC<Props> = ({ feed, postNum }) => {
         <h1 className="text-[30px] font-bold">Public Feed</h1>
         <main>
           {feed.map((post) => (
-            <div key={post.id} className="bg-white">
+            <div key={post.id}>
               <Post post={post} />
             </div>
           ))}

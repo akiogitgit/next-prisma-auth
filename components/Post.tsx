@@ -1,6 +1,6 @@
 import React, { VFC } from "react";
-import Router from "next/router";
 import Link from "next/dist/client/link";
+import FadeIn from "./FadeIn"
 
 export type PostProps = {
   id: number;
@@ -25,8 +25,8 @@ const Post: VFC<{ post: PostProps }> = ({ post }) => {
   }
 
   return (
-    <>
-      <div className="px-6 py-4 bg-white mt-8 shadow-md text-[25px]">
+    <FadeIn>
+      <div className="px-6 py-4 mt-8 bg-white shadow-md text-[25px]">
         <Link href={`/p/${post.id}`}>
           <a className="flex flex-col md:flex-row gap-10 md:ml-0">
             <div className="w-[140px] translate-y-4 text-center mx-auto">
@@ -42,7 +42,7 @@ const Post: VFC<{ post: PostProps }> = ({ post }) => {
           </a>
         </Link>
       </div>
-    </>
+    </FadeIn>
   );
 };
 
