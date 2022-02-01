@@ -104,7 +104,7 @@ const Post: VFC<PostProps> = (props) => {
   // 他人の非公開を見れないようにしよう
   return (
     <Layout>
-        <div className="text-[25px]">
+        <div className="text-[25px] fadeIn-deley">
           {postbelongsToUser || Local ? 
           <div>
             <form

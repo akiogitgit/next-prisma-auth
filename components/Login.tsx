@@ -14,8 +14,8 @@ const Login: VFC<Props> = ({ children }) => {
             {(session || Local) ?
                 children :
                 <div className="mt-10 text-center">
-                    <p>こちらからログインしてください</p>
-                    <button className="primary-btn mt-10"
+                    <p className="fadeIn-deley">こちらからログインしてください</p>
+                    <button className="primary-btn mt-10 fadeIn-deley"
                         onClick={()=>signIn()}>Login</button>
                 </div>
             }
