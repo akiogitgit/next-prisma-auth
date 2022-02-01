@@ -2,6 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useState } from 'react';
+import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -10,8 +12,15 @@ const Header: React.FC = () => {
   
   const { data: session } = useSession()
 
+  const [showHeader, setShowHeader] = useState(true);
+  useScrollPosition(({ prevPos, currPos }) => {
+    const visible = currPos.y > prevPos.y;
+    setShowHeader(visible);
+  }, []);
+
   return (
-    <div>
+    <header className={`fixed top-0 pr-[60px] lg:pr-0 w-full max-w-[780px] z-10 bg-gray-200/80 duration-300
+        ${showHeader ? "" : "translate-y-[-100%]"}`}>
       <Head>
         <title>Simple Post</title>
       </Head>
@@ -44,7 +53,7 @@ const Header: React.FC = () => {
           }
         `}</style>
       </nav>
-    </div>
+    </header>
   );
 };
 
