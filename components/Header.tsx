@@ -53,30 +53,6 @@ const Header: React.FC = () => {
         .left a[data-active="true"] {
             color: gray;
           }
-        .fall-down{
-          transform: translateY(-50px)
-        }
-        .fall-down:nth-child(1){
-          animation: key-fall 1s both;
-        }
-        .fall-down:nth-child(2){
-          animation: key-fall 1s 0.15s both;
-        }
-        .fall-down:nth-child(3){
-          animation: key-fall 1s 0.3s both;
-        }
-        @keyframes key-fall {
-          0%{ transform: translateY(-50px); opacity:0 }
-          100%{ transform: translateY(0px); opacity:1 }
-        }
-        .slide-left{
-          transform: translateX(70px);
-          animation: key-left 1s 0.45s both;
-        }
-        @keyframes key-left {
-          0%{ transform: translateX(70px); opacity:0 }
-          100%{ transform: translateX(0px); opacity:1 }
-        }
         `}</style>
       </nav>
     </header>

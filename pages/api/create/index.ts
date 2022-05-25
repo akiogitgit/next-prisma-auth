@@ -7,13 +7,12 @@ import prisma from "../../../lib/prisma"
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
         const { title, content, published } = req.body
         const session = await getSession({ req })
-        // if (!session && !Local) {
-        //     res.status(401).json({ message: 'Not authenticated' })
-        //     return
-        // }
+
         // 自分が登録されてるか確認
+        // これをCreateの度にやらず、sessionで管理する
+        let user:{email:string,name:string} = {email:"",name:""}
         if(session){
-            const user = await prisma.user.findFirst({
+            user = await prisma.user.findFirst({
                 where: {
                     email: session?.user?.email
                 }
@@ -26,6 +25,11 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
                     }
                 })
             }
+            user = await prisma.user.findFirst({
+                where: {
+                    email: session?.user?.email
+                }
+            })
         }
         await prisma.post.create({ // title, content, authorが必須
             data: {
@@ -34,22 +38,11 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
                 author: {
                     connect: {
                         email: Local ? "test" :
-                                (!session ? "guest" : session?.user?.email)
+                                (!user ? "guest" : user.email)
                     }
                 },
                 published: published
             },
         })
         res.end()
-    // const { title, content } = req.body
-    // // session してるか確認
-    // const session = await getSession({ req })
-    // const result = await prisma.post.create({
-    //     data: {
-    //         title: title,
-    //         content: content,
-    //         author: { connect: { email: session?.user?.email } }
-    //     }
-    // })
-    // res.json(result)
 }
